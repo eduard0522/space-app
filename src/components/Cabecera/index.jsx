@@ -10,11 +10,11 @@ const HeaderEstilizado = styled.header`
   }
 `
 
-const Cabecera = () => {
+const Cabecera = ({aplicarFiltro}) => {
   return (
   <HeaderEstilizado>
       <img src="img/logo.png" alt="Logo Space App" />
-      <InputText />
+      <InputText  aplicarFiltro={aplicarFiltro}/>
   </HeaderEstilizado>
 )}
 

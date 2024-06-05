@@ -28,20 +28,17 @@ const TagStyled = styled.button`
     }
 `
 
-
-
 const   TextStyled = styled.p`
     color: #D9D9D9;
     font-size: 1.2rem;
 `
 
-
-const Tag = () => {
+const Tag = ({filtrarTag}) => {
   return (
     <TagsContainer>
       <TextStyled> Buscar por tags: </TextStyled>
       <DivTags>
-         {tags.map (tag => <TagStyled key={tag.id} > {tag.titulo} </TagStyled>)}
+         {tags.map (tag => <TagStyled key={tag.id} onClick={() => filtrarTag(tag.id)}> {tag.titulo} </TagStyled>)}
       </DivTags>
     </TagsContainer>
       

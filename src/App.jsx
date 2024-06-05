@@ -49,6 +49,25 @@ const App = () =>  {
      ))
  }
 
+ const aplicarFiltro = (filtro) => {
+   if(filtro != ""){
+    setFotosGaleria(fotos.filter( foto => {
+     return foto.titulo.toLowerCase().includes(filtro.toLowerCase())
+   }));
+   }else{
+    setFotosGaleria(fotos)
+   }
+ }
+
+ const filtrarTags = (id) => {
+  if( id != 0){
+   setFotosGaleria(fotos.filter( foto => {
+    return foto.tagId === (id)
+  }));
+  }else{
+   setFotosGaleria(fotos)
+  }
+}
   const [fotoSeleccionada, setFotoSeleccionada] = useState(null)
   
   return (
@@ -56,12 +75,12 @@ const App = () =>  {
       <FondoGradiente >
         <GlobalStyles />
         <AppContainer>
-            <Cabecera />
+            <Cabecera  aplicarFiltro ={aplicarFiltro} />
             <MainStyled>
               <BarraLateral />
               <ContenidoGaleria >
                   <Banner />
-                  <Galeria fotos = {fotosGaleria}  seleccionarFoto={foto => setFotoSeleccionada(foto)} actualizarFavorita={actualizarFavorita} />
+                  <Galeria fotos = {fotosGaleria}  seleccionarFoto={foto => setFotoSeleccionada(foto)} actualizarFavorita={actualizarFavorita} filtrarTag={filtrarTags} />
               </ContenidoGaleria>
             </MainStyled>
         </AppContainer> 

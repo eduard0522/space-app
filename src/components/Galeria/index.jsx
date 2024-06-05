@@ -15,11 +15,11 @@ const ContainerImagenes = styled.div`
   flex-wrap: wrap;
   gap:2rem;
 `
-const Galeria = ({fotos  = [] , seleccionarFoto , actualizarFavorita}) => {
+const Galeria = ({fotos  = [] , seleccionarFoto , actualizarFavorita ,  filtrarTag}) => {
   console.log
   return (
     <>
-        <Tag />
+        <Tag   filtrarTag={filtrarTag}/>
         <GaleriaContainer >
             <SeccionFluida>
               < Titulo> Navegue por la Galería </Titulo>
