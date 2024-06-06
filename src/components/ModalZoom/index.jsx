@@ -26,8 +26,8 @@ const DialogStyled = styled.dialog`
     border: none;
     color: #D9D9D9;
     position: absolute;
-    top: 2rem;
-    right: 4rem;
+    top: 1rem;
+    right: 7rem;
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;

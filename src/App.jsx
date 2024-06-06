@@ -4,8 +4,7 @@ import Cabecera from "./components/Cabecera"
 import BarraLateral from "./components/BarraLateral"
 import Banner from "./components/Banner"
 import Galeria from "./components/Galeria"
-import fotos from "./fotos.json"
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import ModalZoom from "./components/ModalZoom"
 import Footer from "./components/Footer"
 
@@ -37,39 +36,53 @@ const ContenidoGaleria = styled.section`
 
 const App = () =>  {
 
-  const [fotosGaleria, setFotosGaleria] = useState(fotos)
+  const [fotosGaleria, setFotosGaleria] = useState([])
+  const [fotoSeleccionada, setFotoSeleccionada] = useState(null)
 
+  
   const actualizarFavorita = (foto) => {
-      setFotosGaleria(fotosGaleria.map(fotoGaleria => {
-        return {
-          ...fotoGaleria,
-          favorita: fotoGaleria.id === foto.id ?  !fotoGaleria.favorita : fotoGaleria.favorita
-        }
+    if(foto.id === fotoSeleccionada?.id ){
+     setFotoSeleccionada({
+      ...fotoSeleccionada,
+      favorita: !fotoSeleccionada.favorita,
+     })
+    }
+
+    setFotosGaleria(fotosGaleria.map(fotoGaleria => {
+      return {
+        ...fotoGaleria,
+        favorita: fotoGaleria.id === foto.id ?  !fotoGaleria.favorita : fotoGaleria.favorita
       }
-     ))
- }
+    }))
+ } 
+
+
+ useEffect(() => {
+  const getFotos = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/fotos');
+      const data = await res.json();
+      setFotosGaleria([...data]);
+    } catch (error) {
+      setFotosGaleria([])
+    }
+  }
+  getFotos()
+},[])
 
  const aplicarFiltro = (filtro) => {
-   if(filtro != ""){
-    setFotosGaleria(fotos.filter( foto => {
-     return foto.titulo.toLowerCase().includes(filtro.toLowerCase())
-   }));
-   }else{
-    setFotosGaleria(fotos)
-   }
+    setFotosGaleria(fotosGaleria.filter( foto => {
+     return filtro == ""  ||  foto.titulo.toLowerCase().includes(filtro.toLowerCase())
+    }
+  ));
  }
 
  const filtrarTags = (id) => {
-  if( id != 0){
-   setFotosGaleria(fotos.filter( foto => {
-    return foto.tagId === (id)
+  setFotosGaleria(fotosGaleria.filter( foto => {
+   return id === 0 ? foto  : foto.tagId === (id)
   }));
-  }else{
-   setFotosGaleria(fotos)
-  }
 }
-  const [fotoSeleccionada, setFotoSeleccionada] = useState(null)
-  
+
   return (
     <>
       <FondoGradiente >
