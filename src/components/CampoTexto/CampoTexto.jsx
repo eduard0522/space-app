@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import search from "./search.png";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { GlobalContext } from "../Context";
 
 const ContainerStyled = styled.div`
     position: relative;
@@ -32,19 +33,11 @@ const  IconSearchStyled = styled.img`
 
 
 const InputText = ({aplicarFiltro}) => {
-
-  const [inputValue, setInputValue] = useState('');
-
-  const updateValue = (e) => {
-    setInputValue(e.target.value)
-  } 
-  useEffect(() => {
-    aplicarFiltro(inputValue)
-  },[inputValue])
+  const {dispatch} = useContext(GlobalContext)
 
     return (
     <ContainerStyled > 
-        <InputStyled type="text" placeholder="¿ Qué estás buscando ?"  onChange={(e) => updateValue(e)}/> 
+        <InputStyled type="text" placeholder="¿ Qué estás buscando ?"  onChange={(e) => dispatch({ type:"SET_FILTRAR_FOTOS", payload: e.target.value})}/> 
         <IconSearchStyled src={search}  alt="ícono de lupa"/>
     </ContainerStyled>
 

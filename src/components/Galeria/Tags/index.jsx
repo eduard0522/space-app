@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 import tags from './tags.json'
+import { useContext } from 'react'
+import { GlobalContext } from '../../Context'
 
 
 const TagsContainer = styled.div`
@@ -33,12 +35,14 @@ const   TextStyled = styled.p`
     font-size: 1.2rem;
 `
 
-const Tag = ({filtrarTag}) => {
+const Tag = () => {
+  const{dispatch} = useContext(GlobalContext)
+  
   return (
     <TagsContainer>
       <TextStyled> Buscar por tags: </TextStyled>
       <DivTags>
-         {tags.map (tag => <TagStyled key={tag.id} onClick={() => filtrarTag(tag.id)}> {tag.titulo} </TagStyled>)}
+         {tags.map (tag => <TagStyled key={tag.id} onClick={() => dispatch({type:"FILTRAR_TAGS" , payload: tag.id })}> {tag.titulo} </TagStyled>)}
       </DivTags>
     </TagsContainer>
       

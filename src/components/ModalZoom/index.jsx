@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import Imagen from "../Galeria/Imagen"
+import { useContext } from "react"
+import { GlobalContext } from "../Context"
 
 const Overlay = styled.div`
   background-color: rgba(0,0,0,0.5);
@@ -40,15 +42,16 @@ const handleSubmmit = (e,setFoto) => {
   setFoto(null);
 }
 
-const ModalZoom = ({foto,setFotoSeleccionada,actualizarFavorita}) => {
+const ModalZoom = () => {
+  const {fotoSeleccionada,setFotoSeleccionada,actualizarFavorita} = useContext(GlobalContext)
   return (
   <>
-    {foto && 
+    {fotoSeleccionada && 
         <> 
         <Overlay />
-        <DialogStyled open={!!foto}>
+        <DialogStyled open={!!fotoSeleccionada}>
           <form method="dialog">
-            <Imagen imagen={foto} expandida={true} actualizarFavorita={actualizarFavorita} />
+            <Imagen imagen={fotoSeleccionada} expandida={true} actualizarFavorita={actualizarFavorita} />
             <button onClick={(e) => handleSubmmit(e,setFotoSeleccionada)}> X</button>
           </form>
         </DialogStyled>

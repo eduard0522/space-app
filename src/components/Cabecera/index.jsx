@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import InputText from "../CampoTexto/CampoTexto"
 
+
 const HeaderEstilizado = styled.header`
     display: flex;
     justify-content: space-between;
@@ -10,11 +11,14 @@ const HeaderEstilizado = styled.header`
   }
 `
 
-const Cabecera = ({aplicarFiltro}) => {
+const Cabecera = () => {
+  
+  
+
   return (
   <HeaderEstilizado>
       <img src="img/logo.png" alt="Logo Space App" />
-      <InputText  aplicarFiltro={aplicarFiltro}/>
+      <InputText/>
   </HeaderEstilizado>
 )}
 

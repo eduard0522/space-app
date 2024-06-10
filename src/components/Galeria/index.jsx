@@ -3,6 +3,8 @@ import Tag from "./Tags"
 import Populares from "./Populares"
 import Imagen from "./Imagen"
 import styled from "styled-components"
+import { useContext, useEffect } from "react"
+import { GlobalContext } from "../Context"
 
 const GaleriaContainer = styled.div`
     display: flex;
@@ -15,20 +17,20 @@ const ContainerImagenes = styled.div`
   flex-wrap: wrap;
   gap:2rem;
 `
-const Galeria = ({fotos  = [] , seleccionarFoto , actualizarFavorita ,  filtrarTag}) => {
-  console.log
+const Galeria = () => {
+  const { state, dispatch} = useContext(GlobalContext)
   return (
+
     <>
-        <Tag   filtrarTag={filtrarTag}/>
+        <Tag />
         <GaleriaContainer >
             <SeccionFluida>
               < Titulo> Navegue por la Galería </Titulo>
               <ContainerImagenes>
-              {fotos.map(foto => {
-                  return <Imagen imagen={foto}  key={foto.id} solicitarZoom={seleccionarFoto} actualizarFavorita={actualizarFavorita}></Imagen>
+              {state.filtartFotos.map(foto => {
+                  return <Imagen imagen={foto}  key={foto.id}></Imagen>
                 })}
               </ContainerImagenes>
-                
             </SeccionFluida>
             <Populares />
         </GaleriaContainer>
