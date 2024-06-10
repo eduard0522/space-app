@@ -19,7 +19,7 @@ const reducer = (state,action) => {
     case "SET_FILTRAR_FOTOS":
       return{
         ...state,
-        filtarFotos: fotosGaleria.filter(foto => {
+        filtarFotos: state.fotosGaleria.filter(foto => {
           return action.payload === "" || foto.titulo.toLowerCase().includes(action.payload.toLowerCase())
         })
       }
@@ -27,7 +27,7 @@ const reducer = (state,action) => {
     case "ALTERNAR_FAVORITO":
       return {
         ...state,
-        fotosGaleria : fotosGaleria.map(fotoDeGaleria => {
+        fotosGaleria : state.fotosGaleria.map(fotoDeGaleria => {
           return{
             ...fotoDeGaleria,
             favorita: fotoDeGaleria.id === foto.id ? !fotoDeGaleria.favorita : fotoDeGaleria.favorita 
@@ -71,15 +71,6 @@ const GlobalContextProvider = ({children}) => {
       }
       getFotos()
       },[])
-
-    const aplicarFiltro = (filtro) => {
-        setFiltrarFotos(fotosGaleria.filter( foto => {
-        return filtro == ""  ||  foto.titulo.toLowerCase().includes(filtro.toLowerCase())
-        }
-      ));
-    }
- 
-   
 
   return(
     <GlobalContext.Provider  value={{ state,dispatch}} > 

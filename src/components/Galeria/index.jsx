@@ -27,7 +27,7 @@ const Galeria = () => {
             <SeccionFluida>
               < Titulo> Navegue por la Galería </Titulo>
               <ContainerImagenes>
-              {state.filtartFotos.map(foto => {
+              {state.filtarFotos.map(foto => {
                   return <Imagen imagen={foto}  key={foto.id}></Imagen>
                 })}
               </ContainerImagenes>
