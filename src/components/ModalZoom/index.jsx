@@ -2,6 +2,7 @@ import styled from "styled-components"
 import Imagen from "../Galeria/Imagen"
 import { useContext } from "react"
 import { GlobalContext } from "../Context"
+import useModalZoom from "../hooks/ModalZoom"
 
 const Overlay = styled.div`
   background-color: rgba(0,0,0,0.5);
@@ -37,22 +38,20 @@ const DialogStyled = styled.dialog`
    }
 `
 
-const handleSubmmit = (e,setFoto) => {
-  e.preventDefault();
-  setFoto(null);
-}
+
 
 const ModalZoom = () => {
-  const {fotoSeleccionada,setFotoSeleccionada,actualizarFavorita} = useContext(GlobalContext)
+  const {closeModal, selectedPhoto,isOpen} = useModalZoom();
   return (
   <>
-    {fotoSeleccionada && 
+
+    {selectedPhoto && 
         <> 
         <Overlay />
-        <DialogStyled open={!!fotoSeleccionada}>
+        <DialogStyled open={isOpen}>
           <form method="dialog">
-            <Imagen imagen={fotoSeleccionada} expandida={true} actualizarFavorita={actualizarFavorita} />
-            <button onClick={(e) => handleSubmmit(e,setFotoSeleccionada)}> X</button>
+            <Imagen imagen = {selectedPhoto} expandida={true}  />
+            <button onClick={() => closeModal() }> X</button>
           </form>
         </DialogStyled>
         </>

@@ -32,7 +32,7 @@ const  IconSearchStyled = styled.img`
 `
 
 
-const InputText = ({aplicarFiltro}) => {
+const InputText = () => {
   const {dispatch} = useContext(GlobalContext)
 
     return (

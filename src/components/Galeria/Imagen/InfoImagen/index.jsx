@@ -2,6 +2,8 @@ import styled from "styled-components"
 import meGustaActivo from "/iconos/favorito-activo.png"
 import meGusta from "/iconos/favorito.png"
 import expandir from "/iconos/expandir.png"
+import { useContext } from "react"
+import { GlobalContext } from "../../../Context"
 
 const InfoImgContainer = styled.div`
   transform: translateY(-.5rem);
@@ -38,19 +40,22 @@ const Buttons = styled.div`
     }
 ` 
 
-const InfoImagen = ({foto,expandida,solicitarZoom,actualizarFavorita}) => {
+const InfoImagen = ({foto,expandida}) => {
+
+  const {dispatch} = useContext(GlobalContext)
 
   const iconFovorite = foto.favorita ?  meGustaActivo : meGusta;
 
   const {titulo,fuente} = foto
+
   return (
     <InfoImgContainer>
         <h3> {titulo} </h3>
         <Footer >
           <p> {fuente}</p>
           <Buttons>
-              { <button type="button" onClick={() => actualizarFavorita(foto)}> <img src={iconFovorite} alt="Icono corazon" /> </button> }
-              { !expandida &&  <button aria-hidden={expandida} type="button"> <img src={expandir} alt="Icono expandir"  onClick={() => solicitarZoom(foto)}/> </button>}
+              { <button type="button" onClick={() => dispatch({type:"ALTERNAR_FAVORITO" , payload : foto})}> <img src={iconFovorite} alt="Icono corazon" /> </button> }
+              { !expandida &&  <button aria-hidden={expandida} type="button"> <img src={expandir} alt="Icono expandir"  onClick={() => dispatch({type:"SET_FOTO_SELECCIONADA",payload : foto})}/> </button>}
           </Buttons>
         </Footer>
     </InfoImgContainer>

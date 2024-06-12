@@ -18,7 +18,7 @@ const ContainerImagenes = styled.div`
   gap:2rem;
 `
 const Galeria = () => {
-  const { state, dispatch} = useContext(GlobalContext)
+  const { state} = useContext(GlobalContext)
   return (
 
     <>

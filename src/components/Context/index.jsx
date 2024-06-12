@@ -4,7 +4,8 @@ const GlobalContext = createContext()
 const initialState = {
   fotosGaleria:[],
   fotoSeleccionada: null,
-  filtarFotos: []
+  filtarFotos: [],
+  isOpenPhoto: false
 };
 
 const reducer = (state,action) => {
@@ -14,34 +15,38 @@ const reducer = (state,action) => {
         ...state, fotosGaleria: action.payload  }
     case "SET_FOTO_SELECCIONADA":
       return {
-        ...state,fotoSeleccionada: action.payload }
-
+        ...state,fotoSeleccionada: action.payload,
+            isOpenPhoto: action.payload != null ? true : false
+      }
+        
     case "SET_FILTRAR_FOTOS":
       return{
         ...state,
         filtarFotos: state.fotosGaleria.filter(foto => {
-          return action.payload === "" || foto.titulo.toLowerCase().includes(action.payload.toLowerCase())
+          return action.payload.filter === "" || foto.titulo.toLowerCase().includes(action.payload.toLowerCase())
         })
       }
 
     case "ALTERNAR_FAVORITO":
       return {
         ...state,
-        fotosGaleria : state.fotosGaleria.map(fotoDeGaleria => {
-          return{
+        filtarFotos : state.filtarFotos.map(fotoDeGaleria => {
+          return {
             ...fotoDeGaleria,
-            favorita: fotoDeGaleria.id === foto.id ? !fotoDeGaleria.favorita : fotoDeGaleria.favorita 
+            favorita: fotoDeGaleria.id === action.payload.id ? !fotoDeGaleria.favorita : fotoDeGaleria.favorita 
           }
         }),
-        fotoSeleccionada: {
-          ...state.fotoSeleccionada, favorita: !fotoSeleccionada.favorita
-        }
-      }
 
+      fotoSeleccionada: state.fotoSeleccionada? {
+        ...state.fotoSeleccionada,
+        favorita : !state.fotoSeleccionada.favorita
+      }:null
+      } 
+      
     case "FILTRAR_TAGS":
       return{
         ...state,
-        filtarFotos: fotosGaleria.filter(foto => {
+        filtarFotos:  state.fotosGaleria.filter(foto => {
           return action.payload === 0 ? foto : foto.tagId === (action.payload)
       })
       }
@@ -53,7 +58,7 @@ const reducer = (state,action) => {
 }
 
 const GlobalContextProvider = ({children}) => {
-
+  console.log("coargando contexto")
   const [state,dispatch] = useReducer(reducer,initialState)
 
     useEffect(() => {
@@ -61,9 +66,9 @@ const GlobalContextProvider = ({children}) => {
         try {
           const res = await fetch('http://localhost:3000/fotos');
           const data = await res.json();
-
+          console.log(res.data)
           dispatch({type: "SET_FOTOS_GALERIA" , payload: data})
-          dispatch({type: "SET_FILTRAR_FOTOS" , payload: data})
+          dispatch({type: "SET_FILTRAR_FOTOS" , payload: {data,filter:""}})
         } catch (error) {
           console.log(error)
            dispatch({type: "SET_FOTOS_GALERIA" , payload: []})

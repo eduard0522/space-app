@@ -1,8 +1,5 @@
 import styled from "styled-components"
 import InfoImagen from "./InfoImagen"
-import { useContext } from "react"
-import { GlobalContext } from "../../Context"
-
 
 
 const CardContainer = styled.figure`
@@ -17,12 +14,12 @@ const CardContainer = styled.figure`
       width: 100%;
     }
 `
-const Imagen = ({imagen,expandida,solicitarZoom,actualizarFavorita}) => {
-  const {state} = useContext(GlobalContext)
+const Imagen = ({imagen,expandida}) => {
+ 
   return (
       <CardContainer $expandida = {expandida}>
           <img src={imagen.path} alt={imagen.titulo} /> 
-          <InfoImagen foto={imagen} expandida={expandida}  solicitarZoom={solicitarZoom} actualizarFavorita={actualizarFavorita} ></InfoImagen>
+          <InfoImagen foto={imagen} expandida={expandida} ></InfoImagen>
       </CardContainer>
   )
 }

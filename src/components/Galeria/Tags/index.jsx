@@ -42,7 +42,7 @@ const Tag = () => {
     <TagsContainer>
       <TextStyled> Buscar por tags: </TextStyled>
       <DivTags>
-         {tags.map (tag => <TagStyled key={tag.id} onClick={() => dispatch({type:"FILTRAR_TAGS" , payload: tag.id })}> {tag.titulo} </TagStyled>)}
+         {tags.map (tag => <TagStyled key={tag.id} onClick={() => dispatch({type:"FILTRAR_TAGS", payload: tag.id })}> {tag.titulo} </TagStyled>)}
       </DivTags>
     </TagsContainer>
       
